@@ -1,5 +1,15 @@
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.modelSerializer):
+    # snippets is a reverse relation to User, so we need to add an explicit field for it
+    snippets = serializers.PrimaryKeyRelatedFields(many=True, queryset=Snippet.objects.all())
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'snippets'] 
 
 
 # ModelSerializer gets an automatically determined set of fields, and simple default imprementations for the create() and update() methods
