@@ -14,9 +14,10 @@ class UserSerializer(serializers.modelSerializer):
 
 # ModelSerializer gets an automatically determined set of fields, and simple default imprementations for the create() and update() methods
 class SnippetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Snippet
-        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
+        fields = ['id', 'title', 'code', 'owner', 'linenos', 'language', 'style']
 
 
 # # The same serializer, defined explicitly
