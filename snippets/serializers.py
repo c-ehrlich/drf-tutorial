@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     # snippets is a reverse relation to User, so we need to add an explicit field for it
-    snippets = serializers.HyperlinkedRelatedField(many=True, queryset=Snippet.objects.all())
+    snippets = serializers.HyperlinkedRelatedField(view_name='snippet-detail', many=True, queryset=Snippet.objects.all())
 
     class Meta:
         model = User
@@ -15,7 +15,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 # ModelSerializer gets an automatically determined set of fields, and simple default imprementations for the create() and update() methods
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    highlight = serializers.HyperlinkedItendityField(view_name='snippet-highlight', format='html')
+    highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
 
     class Meta:
         model = Snippet
