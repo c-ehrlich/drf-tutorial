@@ -3,9 +3,9 @@ from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 from django.contrib.auth.models import User
 
 
-class UserSerializer(serializers.modelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     # snippets is a reverse relation to User, so we need to add an explicit field for it
-    snippets = serializers.PrimaryKeyRelatedFields(many=True, queryset=Snippet.objects.all())
+    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
 
     class Meta:
         model = User
